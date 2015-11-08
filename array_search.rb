@@ -31,7 +31,7 @@ class VacantSearch
       end
       by_position += 1
     end
-    found
+    test found
   end
 
   private
