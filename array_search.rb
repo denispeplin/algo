@@ -36,8 +36,9 @@ class VacantSearch
     right_found = true && found << k if array[-1] == k - 1
     left = 0
     right = k - 3
-    found << array[left] + 1 if array[right] - array[left] == 2 && right - left == 1
-    while found.size < 2 do
+    while true do
+      found += get_gaps(left, right) if right - left == 1
+      break unless found.size < 2
       pointer = (right - left) / 2 + left
       if middle?(pointer)
         found << quicksearch_one(left, pointer) unless left_found
@@ -47,10 +48,21 @@ class VacantSearch
       elsif right?(pointer, 1)
         right = pointer
       end
-      found << array[left] + 1 if array[right] - array[left] == 2 && right - left == 1
-      found = [array[left] + 1, array[left] + 2] if array[right] - array[left] == 3 && right - left == 1
     end
     found
+  end
+
+  private
+
+  def get_gaps(left, right)
+    case array[right] - array[left]
+    when 2
+      [array[left] + 1]
+    when 3
+      [array[left] + 1, array[left] + 2]
+    else
+      []
+    end
   end
 
   def quicksearch_one(left, right, base = 0)
@@ -64,8 +76,6 @@ class VacantSearch
       return array[left] + 1 if right - left == 1
     end
   end
-
-  private
 
   def left?(pointer, base = 0)
     array[pointer] - pointer == 1 + base
