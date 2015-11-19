@@ -3,7 +3,7 @@ require './array_search'
 
 shared_examples_for 'vacancies matcher' do
   specify do
-    expect(vacant_search.quicksearch).to match_array(missing)
+    expect(vacant_search.quicksearch).to match_array(vacancies)
   end
 end
 
@@ -12,149 +12,133 @@ describe VacantSearch do
 
   context 'empty array' do
     let(:array) { [] }
+    let(:vacancies) { [1, 2] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([1, 2])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'first two missing' do
     let(:array) { [3] }
+    let(:vacancies) { [1, 2] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([1, 2])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'first and last missing' do
     let(:array) { [2, 3] }
+    let(:vacancies) { [1, 4] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([1, 4])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'last two missing' do
     let(:array) { [1, 2] }
+    let(:vacancies) { [3, 4] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([3, 4])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'two in the middle missing' do
     let(:array) { [1, 4] }
+    let(:vacancies) { [2, 3] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([2, 3])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'one in the middle missing ' do
     let(:array) { [2, 4] }
+    let(:vacancies) { [1, 3] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([1, 3])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'missing are on the right, separated by one' do
     let(:array) { [1, 2, 4] }
+    let(:vacancies) { [3, 5] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([3, 5])
-    end
+    include_examples 'vacancies matcher'
   end
-
-
 
   context 'missing are separated by two' do
     let(:array) { [1, 3, 4, 6] }
+    let(:vacancies) { [2, 5] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([2, 5])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'missing are on the left, separated by two' do
     let(:array) { [2, 3, 5] }
+    let(:vacancies) { [1, 4] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([1, 4])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'missing are on the right, separated by two' do
     let(:array) { [1, 2, 4, 5] }
+    let(:vacancies) { [3, 6] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([3, 6])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'missing are separated by many' do
     let(:array) { [1, 2, 4, 5, 6, 8, 9, 10] }
+    let(:vacancies) { [3, 7] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([3, 7])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'missing are together in the middle' do
     let(:array) { [1, 2, 3, 4, 7, 8, 9, 10] }
+    let(:vacancies) { [5, 6] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([5, 6])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'missing are together at the left' do
     let(:array) { [1, 2, 5, 6, 7, 8, 9, 10] }
+    let(:vacancies) { [3, 4] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([3, 4])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'missing are together at the right' do
     let(:array) { [1, 2, 3, 4, 5, 6, 9, 10] }
+    let(:vacancies) { [7, 8] }
 
-    specify do
-      expect(vacant_search.quicksearch).to match_array([7, 8])
-    end
+    include_examples 'vacancies matcher'
   end
 
   context 'thousands' do
-    let(:missing) { [133, 856] }
-    let(:array) { (1..1_000).to_a - missing  }
+    let(:array) { (1..1_000).to_a - vacancies  }
+    let(:vacancies) { [133, 856] }
 
     include_examples 'vacancies matcher'
   end
 
   context 'tens of thousands' do
-    let(:missing) { [1_330, 2_041] }
-    let(:array) { (1..10_001).to_a - missing  }
+    let(:array) { (1..10_001).to_a - vacancies  }
+    let(:vacancies) { [1_330, 2_041] }
 
     include_examples 'vacancies matcher'
   end
 
   context 'hundreds of thousands' do
-    let(:missing) { [1_333, 70_415] }
-    let(:array) { (1..100_000).to_a - missing  }
+    let(:array) { (1..100_000).to_a - vacancies  }
+    let(:vacancies) { [1_333, 70_415] }
 
     include_examples 'vacancies matcher'
   end
 
   context 'millions' do
-    let(:missing) { [55_555, 708_415] }
-    let(:array) { (1..1_000_001).to_a - missing  }
+    let(:array) { (1..1_000_001).to_a - vacancies  }
+    let(:vacancies) { [55_555, 708_415] }
 
     include_examples 'vacancies matcher'
   end
 
   context 'tens of millions' do
-    let(:missing) { [55_557, 9_708_815] }
-    let(:array) { (1..10_000_000).to_a - missing  }
+    let(:array) { (1..10_000_000).to_a - vacancies  }
+    let(:vacancies) { [55_557, 9_708_815] }
 
     include_examples 'vacancies matcher'
   end

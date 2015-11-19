@@ -9,7 +9,7 @@ class VacantSearch
     else
       @k = param
       @vacancies = get_vacancies
-      @array = (1..k).to_a - @vacancies
+      @array = (1..k).to_a - vacancies
     end
   end
 
@@ -25,7 +25,7 @@ class VacantSearch
       end
       by_position += 1
     end
-    test found
+    found
   end
 
   def quicksearch
@@ -50,7 +50,7 @@ class VacantSearch
       found << array[pointer_left] + 1 if  pointer_right - pointer_left == 1 && array[pointer_right] - array[pointer_left] == 2
       found = [array[pointer_left] + 1, array[pointer_left] + 2] if  pointer_right - pointer_left == 1 && array[pointer_right] - array[pointer_left] == 3
     end
-    test found
+    found
   end
 
   def quicksearch_one(left, right, base = 0)
@@ -66,11 +66,6 @@ class VacantSearch
   end
 
   private
-
-  def test(found)
-    fail "Vacant values are #{@vacancies}, found #{found}" unless (@vacancies - found).empty?
-    found
-  end
 
   def left?(pointer, base = 0)
     array[pointer] - pointer == 1 + base
