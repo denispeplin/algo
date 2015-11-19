@@ -34,32 +34,32 @@ class VacantSearch
     return [k - 1, k] if array[-1] == k - 2
     left_found = true && found << 1 if array[0] == 2
     right_found = true && found << k if array[-1] == k - 1
-    pointer_left = 0
-    pointer_right = k - 3
-    found << array[pointer_left] + 1 if array[pointer_right] - array[pointer_left] == 2 && pointer_right - pointer_left == 1
+    left = 0
+    right = k - 3
+    found << array[left] + 1 if array[right] - array[left] == 2 && right - left == 1
     while found.size < 2 do
-      pointer = (pointer_right - pointer_left) / 2 + pointer_left
+      pointer = (right - left) / 2 + left
       if middle?(pointer)
-        found << quicksearch_one(pointer_left, pointer) unless left_found
-        found << quicksearch_one(pointer, pointer_right, 1) unless right_found
+        found << quicksearch_one(left, pointer) unless left_found
+        found << quicksearch_one(pointer, right, 1) unless right_found
       elsif left?(pointer)
-        pointer_left = pointer
+        left = pointer
       elsif right?(pointer, 1)
-        pointer_right = pointer
+        right = pointer
       end
-      found << array[pointer_left] + 1 if  pointer_right - pointer_left == 1 && array[pointer_right] - array[pointer_left] == 2
-      found = [array[pointer_left] + 1, array[pointer_left] + 2] if  pointer_right - pointer_left == 1 && array[pointer_right] - array[pointer_left] == 3
+      found << array[left] + 1 if array[right] - array[left] == 2 && right - left == 1
+      found = [array[left] + 1, array[left] + 2] if array[right] - array[left] == 3 && right - left == 1
     end
     found
   end
 
   def quicksearch_one(left, right, base = 0)
     while true do
-      middle = (right - left) / 2 + left
-      if left?(middle, base)
-        left = middle
-      elsif right?(middle, base)
-        right = middle
+      pointer = (right - left) / 2 + left
+      if left?(pointer, base)
+        left = pointer
+      elsif right?(pointer, base)
+        right = pointer
       end
       return array[left] + 1 if right - left == 1
     end
