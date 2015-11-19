@@ -1,7 +1,6 @@
 class VacantSearch
   attr_reader :k, :array, :vacancies
 
-  # pass array here to ease testing
   def initialize(param)
     if param.is_a?(Array)
       @k = param.size + 2
