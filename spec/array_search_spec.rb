@@ -1,5 +1,5 @@
 require 'rspec'
-require './array_search'
+require './src/array_search'
 
 shared_examples_for 'vacancies matcher' do
   specify do

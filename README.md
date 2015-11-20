@@ -1,5 +1,5 @@
 ```
-ruby array_search_benchmark.rb
+ruby benchmarks/array_search_benchmark.rb
 ```
 
 ```

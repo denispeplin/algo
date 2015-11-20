@@ -1,5 +1,5 @@
 require 'benchmark'
-require './array_search'
+require './src/array_search'
 
 k_1 = 1_000_000
 k_10 = 10_000_000
